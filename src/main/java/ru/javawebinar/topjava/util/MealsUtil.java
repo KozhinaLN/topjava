@@ -24,12 +24,16 @@ public class MealsUtil {
                 new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410)
         );
 
-        final LocalTime startTime = LocalTime.of(7, 0);
-        final LocalTime endTime = LocalTime.of(12, 0);
+        /*final*/ LocalTime startTime = LocalTime.of(7, 0);
+        /*final*/ LocalTime endTime = LocalTime.of(12, 0);
 
         List<MealTo> mealsTo = filteredByStreams(meals, startTime, endTime, 2000);
         mealsTo.forEach(System.out::println);
 
+        System.out.println("----");
+
+        startTime = LocalTime.of(12, 0);
+        endTime = LocalTime.of(18, 0);
         System.out.println(filteredByCycles(meals, startTime, endTime, 2000));
     }
 
