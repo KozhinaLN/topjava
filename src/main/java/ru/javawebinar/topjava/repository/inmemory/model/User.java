@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.model;
+package ru.javawebinar.topjava.repository.inmemory.model;
 
 import java.util.Date;
 import java.util.EnumSet;
