@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.repository.inmemory.model;
+package ru.javawebinar.topjava.model;
 
 public abstract class AbstractBaseEntity {
     protected Integer id;
