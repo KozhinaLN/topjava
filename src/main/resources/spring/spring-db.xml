@@ -1,11 +1,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+<!--
+    xmlns:p="http://www.springframework.org/schema/p"
+-->
 
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
@@ -34,9 +40,13 @@
         <property name="password" value="${database.password}"/>
     </bean>
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+            <property name="dataSource-ref" value="dataSource"/>
+            <property name="packagesToScan" value="ru.javawebinar.**.model"/>
+<!--
           p:dataSource-ref="dataSource"
           p:packagesToScan="ru.javawebinar.**.model">
+-->
         <!--p:persistenceUnitName="persistenceUnit">-->
 
         <property name="jpaPropertyMap">
@@ -48,10 +58,33 @@
         </property>
 
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+<!--
                   p:showSql="${jpa.showSql}">
+-->
+                <property name="showSql" value="${jpa.showSql}"/>
             </bean>
         </property>
+    </bean>
+
+    <tx:annotation-driven/>
+
+    <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+<!--
+          p:entityManagerFactory-ref="entityManagerFactory"/>
+-->
+        <property name="entityManagerFactory-ref" value="entityManagerFactory"/>
+    </bean>
+
+    <tx:annotation-driven/>
+
+    <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+<!--
+          p:entityManagerFactory-ref="entityManagerFactory"/>
+-->
+        <property name="entityManagerFactory-ref" value="entityManagerFactory"/>
     </bean>
 
     <!--
