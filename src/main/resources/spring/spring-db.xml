@@ -41,7 +41,10 @@
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+            <property name="dataSource" ref="dataSource"/>
+<!--
             <property name="dataSource-ref" value="dataSource"/>
+-->
             <property name="packagesToScan" value="ru.javawebinar.**.model"/>
 <!--
           p:dataSource-ref="dataSource"
@@ -75,7 +78,10 @@
 <!--
           p:entityManagerFactory-ref="entityManagerFactory"/>
 -->
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+<!--
         <property name="entityManagerFactory-ref" value="entityManagerFactory"/>
+-->
     </bean>
 
     <tx:annotation-driven/>
