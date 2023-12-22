@@ -4,7 +4,7 @@
 
 <fmt:setBundle basename="messages.app"/>
 
-<html>
+<html lang=ru>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
